@@ -35,7 +35,14 @@ def show_menu():
 def add_note(conn):
     print("Add a new note: ")
     title = input("Enter the title: ")
-    content = input("Enter the content: ")
+    print("Enter the content (type 'END' on a new line to finish): ")
+    content_lines = []
+    while True:
+        line = input()
+        if line == "END":
+            break
+        content_lines.append(line)
+    content = "\n".join(content_lines)
     sql = '''INSERT INTO notes(title, content) VALUES(?,?)'''
     cur = conn.cursor()
     cur.execute(sql, (title, content))
